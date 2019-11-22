@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        Hello ! Here you can check auth !
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    If you wanna try <b>Admin</b> rights :
+                    <a href="User">Manage Users</a><br>
+                    <a href="Address">Create Address(Do it first, there are some dependencies between actions)</a><br>
+                    <a href="Order">Order (Second action)</a><br>
+                    <a href="PhoneCharacteristic">Phone characteristic (Create)</a><br>
+                    <a href="Phone">Phones (Create). You have to create characterictick, profile, order and address BEFORE</a><br>
+                    <a href="Profile">Manage Profiles</a><br>
+                    <a href="Phone">Phones (Create)</a>
+                </th>
+                <th>
+                    If you wanna try <b>User</b> rights :
+                    <a href="User">Manage Users (Spoiler: You cant)</a><br>
+                    <a href="Address">Address (Add)</a>
+                    <a href="Order">Order (Buy)</a><br>
+                    <a href="Phone">Phones</a><br>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <a href="Account/Logout">Logout</a>
+        </body>
+</html>
