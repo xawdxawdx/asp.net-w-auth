@@ -9,7 +9,7 @@ namespace DanilaWebApp.Models
     public class LoginModel
     {
         [Required(ErrorMessage = "Не указан login")]
-        public string Login { get; set; }
+        public string UserName { get; set; }
 
         [Required(ErrorMessage = "Не указан пароль")]
         [DataType(DataType.Password)]

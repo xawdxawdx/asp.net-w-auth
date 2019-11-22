@@ -10,28 +10,47 @@ using DanilaWebApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Text;
 using System.Security.Cryptography;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DanilaWebApp.Controllers
 {
     public class UserController : Controller
     {
+        private readonly RoleManager<IdentityRole> roleManager;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
         private readonly DataContext _context;
 
-        public UserController(DataContext context)
+        public UserController(DataContext context, RoleManager<IdentityRole> roleManagers, UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _context = context;
+            _userManager = userManager;
+            _signInManager = signInManager;
+            roleManager = roleManagers;
         }
 
-        // GET: User
-        [Authorize(Roles = "admin")]
+        // GET: Users
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Users.ToListAsync());
+            //var context = _context.Match.Include(m => m.UserMatches).ThenInclude(m => m.User).Include(m => m.Team_home).Include(m => m.Team_guest);
+            if (User.Identity.IsAuthenticated)
+                return View(await _context.Users.ToListAsync());
+            else
+                return RedirectToAction("Login");
+           // return View();//await context.ToListAsync());
         }
 
-        // GET: User/Details/5
-        [Authorize(Roles = "admin")]
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> WatchUsers()
+        {
+            if (User.Identity.IsAuthenticated)
+                return View(await _context.Users.ToListAsync());
+            else
+                return RedirectToAction("Login");
+        }
+        [Authorize(Roles = "user,admin")]
+        // GET: Users/Details/5
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
@@ -48,44 +67,103 @@ namespace DanilaWebApp.Controllers
             return View(user);
         }
 
-        // GET: User/Create
+        [HttpGet]
         [Authorize(Roles = "admin")]
+        // GET: Users/Create
+
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: User/Create
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Register([Bind("UserName,Password")]User user)
+        {
+            if (ModelState.IsValid)
+            {
+                User users = new User { Password = user.Password, UserName = user.UserName };
+
+
+                var result = await _userManager.CreateAsync(user, user.Password);
+                if (result.Succeeded)
+                {
+
+                    bool userRoleExists = await roleManager.RoleExistsAsync("user");
+                    bool adminRoleExists = await roleManager.RoleExistsAsync("admin");
+                    if (!userRoleExists)
+                        await roleManager.CreateAsync(new IdentityRole("user"));
+                    if (!adminRoleExists)
+                        await roleManager.CreateAsync(new IdentityRole("admin"));
+
+                    if (user.UserName == "Ali654")
+                        await _userManager.AddToRoleAsync(user, "admin");
+                    else
+                        await _userManager.AddToRoleAsync(user, "user");
+                    await _signInManager.SignInAsync(user, false);
+                    return RedirectToAction("Login", "User");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
+            }
+            return View(user);
+        }
+
+        public IActionResult Login() => View();
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login([Bind("UserName,Password")]User user)
+        {
+            if (ModelState.IsValid)
+            {
+                var result =
+            await _signInManager.PasswordSignInAsync(user.UserName, user.Password, true, false);
+                //User users = _context.User.FirstOrDefault(u => u.UserName == user.UserName && u.UserPassword == user.UserPassword);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "User");
+                }
+            }
+            return View(user);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> LogOut()
+        {
+
+            await _signInManager.SignOutAsync();
+            //User users = _context.User.FirstOrDefault(u => u.UserName == user.UserName && u.UserPassword == user.UserPassword);
+            return RedirectToAction("Login", "Users");
+        }
+
+        // POST: Users/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "admin")]
-        public async Task<IActionResult> Create(RegisterModel model)
+        public async Task<IActionResult> Create([Bind("UserId,Username,UserPassword,Points")] User user)
         {
             if (ModelState.IsValid)
             {
-                User user = await _context.Users.FirstOrDefaultAsync(u => u.Login == model.Login);
-                if (user == null)
-                {
-                    // добавляем пользователя в бд
-                    user = new User { Login = model.Login, Password = ComputeSha256Hash(model.Password) };
-                    Role userRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == "user");
-                    if (userRole != null)
-                        user.Role = userRole;
-
-                    _context.Users.Add(user);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction("Index", "User");
-                }
-                else
-                    ModelState.AddModelError("", "Некорректные логин и(или) пароль");
+                _context.Add(user);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-            return View(model);
+            return View(user);
         }
 
-        // GET: User/Edit/5
         [Authorize(Roles = "admin")]
+        // GET: Users/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -101,13 +179,12 @@ namespace DanilaWebApp.Controllers
             return View(user);
         }
 
-        // POST: User/Edit/5
+        // POST: Users/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "admin")]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Login,Password,RegistrationDate")] User user)
+        public async Task<IActionResult> Edit(string id, [Bind("UserId,Username,UserPassword,Points")] User user)
         {
             if (id != user.Id)
             {
@@ -123,7 +200,7 @@ namespace DanilaWebApp.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UserExists(user.Id))
+                    if (!UserExists(Convert.ToInt32(user.Id)))
                     {
                         return NotFound();
                     }
@@ -136,10 +213,9 @@ namespace DanilaWebApp.Controllers
             }
             return View(user);
         }
-
-        // GET: User/Delete/5
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> Delete(int? id)
+        // GET: Users/Delete/5
+        public async Task<IActionResult> Delete(string id, string ReturnUrl = "Access Denied")
         {
             if (id == null)
             {
@@ -156,39 +232,20 @@ namespace DanilaWebApp.Controllers
             return View(user);
         }
 
-        // POST: User/Delete/5
-        [Authorize(Roles = "admin")]
+        // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var user = await _context.Users.FindAsync(id);
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(WatchUsers));
         }
 
         private bool UserExists(int id)
         {
-            return _context.Users.Any(e => e.Id == id);
-        }
-
-        static string ComputeSha256Hash(string rawData)
-        {
-            // Create a SHA256   
-            using (SHA256 sha256Hash = SHA256.Create())
-            {
-                // ComputeHash - returns byte array  
-                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
-
-                // Convert byte array to a string   
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
-                {
-                    builder.Append(bytes[i].ToString("x2"));
-                }
-                return builder.ToString();
-            }
+            return _context.Users.Any(e => Convert.ToInt32(e.Id) == id);
         }
     }
 }

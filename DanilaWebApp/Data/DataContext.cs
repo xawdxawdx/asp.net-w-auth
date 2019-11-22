@@ -1,16 +1,22 @@
 using DanilaWebApp.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace DanilaWebApp.Data
 {
-    public class DataContext :  DbContext
+    public class DataContext:IdentityDbContext<User>
     {
         public DataContext(DbContextOptions options) : base(options)
         {
         }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<Role> Roles { get; set; }
+        //public DbSet<Role> Roles { get; set; }
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Phone> Phones { get; set; }
@@ -28,11 +34,11 @@ namespace DanilaWebApp.Data
             string adminPassword = "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92";
 
             // добавляем роли
-            Role adminRole = new Role { Id = 1, Name = adminRoleName };
-            Role userRole = new Role { Id = 2, Name = userRoleName };
-            User adminUser = new User { Id = 1, Login = adminLogin, Password = adminPassword, RoleId = adminRole.Id };
+           // Role adminRole = new Role { Id = 1, Name = adminRoleName };
+           // Role userRole = new Role { Id = 2, Name = userRoleName };
+            User adminUser = new User { Id = "1", UserName = adminLogin, Password = adminPassword };
 
-            modelBuilder.Entity<Role>().HasData(new Role[] { adminRole, userRole });
+            //modelBuilder.Entity<Role>().HasData(new Role[] { adminRole, userRole });
             modelBuilder.Entity<User>().HasData(new User[] { adminUser });
             base.OnModelCreating(modelBuilder);
 
@@ -85,6 +91,6 @@ namespace DanilaWebApp.Data
                 });
         }
         
-        public DbSet<DanilaWebApp.Models.Role> Role { get; set; }
+        //public DbSet<DanilaWebApp.Models.Role> Role { get; set; }
     }
 }

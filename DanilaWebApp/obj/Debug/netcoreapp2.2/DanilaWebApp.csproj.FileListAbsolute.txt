@@ -116,8 +116,6 @@ X:\iitu\omaewa\DanilaWebApp\DanilaWebApp\obj\Debug\netcoreapp2.2\DanilaWebApp.pd
 X:\iitu\omaewa\DanilaWebApp\DanilaWebApp\obj\Debug\netcoreapp2.2\DanilaWebApp.csproj.CopyComplete
 X:\iitu\omaewa\DanilaWebApp\DanilaWebApp\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_Layout.g.cshtml.cs
 X:\iitu\omaewa\DanilaWebApp\DanilaWebApp\obj\Debug\netcoreapp2.2\Razor\Views\_ViewStart.g.cshtml.cs
-X:\iitu\omaewa\DanilaWebApp\DanilaWebApp\obj\Debug\netcoreapp2.2\Razor\Views\Account\Login.g.cshtml.cs
-X:\iitu\omaewa\DanilaWebApp\DanilaWebApp\obj\Debug\netcoreapp2.2\Razor\Views\Account\Register.g.cshtml.cs
 X:\iitu\omaewa\DanilaWebApp\DanilaWebApp\obj\Debug\netcoreapp2.2\Razor\Views\Account\Index.g.cshtml.cs
 X:\iitu\omaewa\DanilaWebApp\DanilaWebApp\obj\Debug\netcoreapp2.2\Razor\Views\Roles\Create.g.cshtml.cs
 X:\iitu\omaewa\DanilaWebApp\DanilaWebApp\obj\Debug\netcoreapp2.2\Razor\Views\Roles\Delete.g.cshtml.cs
@@ -125,3 +123,5 @@ X:\iitu\omaewa\DanilaWebApp\DanilaWebApp\obj\Debug\netcoreapp2.2\Razor\Views\Rol
 X:\iitu\omaewa\DanilaWebApp\DanilaWebApp\obj\Debug\netcoreapp2.2\Razor\Views\Roles\Edit.g.cshtml.cs
 X:\iitu\omaewa\DanilaWebApp\DanilaWebApp\obj\Debug\netcoreapp2.2\Razor\Views\Roles\Index.g.cshtml.cs
 X:\iitu\omaewa\DanilaWebApp\DanilaWebApp\obj\Debug\netcoreapp2.2\Razor\Views\Account\AccessDenied.g.cshtml.cs
+X:\iitu\omaewa\DanilaWebApp\DanilaWebApp\obj\Debug\netcoreapp2.2\Razor\Views\User\Login.g.cshtml.cs
+X:\iitu\omaewa\DanilaWebApp\DanilaWebApp\obj\Debug\netcoreapp2.2\Razor\Views\User\Register.g.cshtml.cs
