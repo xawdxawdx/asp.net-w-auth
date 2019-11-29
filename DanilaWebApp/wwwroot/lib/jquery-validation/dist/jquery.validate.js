@@ -362,7 +362,7 @@ $.extend( $.validator, {
 	messages: {
 		required: "This field is required.",
 		remote: "Please fix this field.",
-		email: "Please enter a valid email address.",
+		email: "Please enter a valid email Address.",
 		url: "Please enter a valid URL.",
 		date: "Please enter a valid date.",
 		dateISO: "Please enter a valid date (ISO).",
@@ -1377,7 +1377,7 @@ $.extend( $.validator, {
 		// https://jqueryvalidation.org/email-method/
 		email: function( value, element ) {
 
-			// From https://html.spec.whatwg.org/multipage/forms.html#valid-e-mail-address
+			// From https://html.spec.whatwg.org/multipage/forms.html#valid-e-mail-Address
 			// Retrieved 2014-01-14
 			// If you have a problem with this implementation, report a bug against the above spec
 			// Or use custom methods to implement your own email validation

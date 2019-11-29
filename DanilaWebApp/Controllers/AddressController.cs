@@ -34,14 +34,14 @@ namespace DanilaWebApp.Controllers
                 return NotFound();
             }
 
-            var address = await _context.Addresses
+            var Address = await _context.Addresses
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (address == null)
+            if (Address == null)
             {
                 return NotFound();
             }
 
-            return View(address);
+            return View(Address);
         }
 
         // GET: Address/Create
@@ -55,15 +55,15 @@ namespace DanilaWebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Country,City,AdditionalLocation,ZipCode,SelfExport")] Address address)
+        public async Task<IActionResult> Create([Bind("Id,Country,City,AdditionalLocation,ZipCode,SelfExport")] Address Address)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(address);
+                _context.Add(Address);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(address);
+            return View(Address);
         }
 
         // GET: Address/Edit/5
@@ -74,12 +74,12 @@ namespace DanilaWebApp.Controllers
                 return NotFound();
             }
 
-            var address = await _context.Addresses.FindAsync(id);
-            if (address == null)
+            var Address = await _context.Addresses.FindAsync(id);
+            if (Address == null)
             {
                 return NotFound();
             }
-            return View(address);
+            return View(Address);
         }
 
         // POST: Address/Edit/5
@@ -87,9 +87,9 @@ namespace DanilaWebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Country,City,AdditionalLocation,ZipCode,SelfExport")] Address address)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Country,City,AdditionalLocation,ZipCode,SelfExport")] Address Address)
         {
-            if (id != address.Id)
+            if (id != Address.Id)
             {
                 return NotFound();
             }
@@ -98,12 +98,12 @@ namespace DanilaWebApp.Controllers
             {
                 try
                 {
-                    _context.Update(address);
+                    _context.Update(Address);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AddressExists(address.Id))
+                    if (!AddressExists(Address.Id))
                     {
                         return NotFound();
                     }
@@ -114,7 +114,7 @@ namespace DanilaWebApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(address);
+            return View(Address);
         }
 
         // GET: Address/Delete/5
@@ -125,14 +125,14 @@ namespace DanilaWebApp.Controllers
                 return NotFound();
             }
 
-            var address = await _context.Addresses
+            var Address = await _context.Addresses
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (address == null)
+            if (Address == null)
             {
                 return NotFound();
             }
 
-            return View(address);
+            return View(Address);
         }
 
         // POST: Address/Delete/5
@@ -140,8 +140,8 @@ namespace DanilaWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var address = await _context.Addresses.FindAsync(id);
-            _context.Addresses.Remove(address);
+            var Address = await _context.Addresses.FindAsync(id);
+            _context.Addresses.Remove(Address);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

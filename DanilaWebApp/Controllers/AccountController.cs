@@ -23,6 +23,7 @@ namespace DanilaWebApp.Controllers
         {
             _context = context;
         }
+        [Authorize(Roles = "user,admin")]
         [HttpGet]
         public IActionResult Index()
         {
@@ -56,7 +57,7 @@ namespace DanilaWebApp.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Login", "User");
         }
     }
 }

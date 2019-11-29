@@ -255,7 +255,7 @@ namespace DanilaWebApp.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "22f8ddb2-93cb-41e1-9866-30994c0be1c3",
+                            ConcurrencyStamp = "85d1297e-da7a-4460-b527-a34708750b8b",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             Password = "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",

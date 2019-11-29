@@ -49,6 +49,7 @@ namespace DanilaWebApp.Controllers
         }
 
         // GET: Phone/Create
+        [HttpGet]
         [Authorize(Roles = "admin, user")]
         public IActionResult Create()
         {

@@ -23,7 +23,7 @@
                     <a href="Address">Create Address(Do it first, there are some dependencies between actions)</a><br>
                     <a href="Order">Order (Second action)</a><br>
                     <a href="PhoneCharacteristic">Phone characteristic (Create)</a><br>
-                    <a href="Phone">Phones (Create). You have to create characterictick, profile, order and address BEFORE</a><br>
+                    <a href="Phone">Phones (Create). You have to create characterictick, profile, order and Address BEFORE</a><br>
                     <a href="Profile">Manage Profiles</a><br>
                     <a href="Phone">Phones (Create)</a>
                 </th>
@@ -37,6 +37,8 @@
                 <th></th>
             </tr>
         </thead>
-        <a href="/User/Logout">Logout</a>
+        <form method="post" asp-controller="User" asp-action="Logout">
+            <input type="submit" value="Выход" />
+        </form>
         </body>
 </html>

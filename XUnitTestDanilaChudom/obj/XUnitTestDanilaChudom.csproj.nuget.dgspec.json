@@ -1,0 +1,151 @@
+{
+  "format": 1,
+  "restore": {
+    "X:\\iitu\\omaewa\\DanilaWebApp\\XUnitTestDanilaChudom\\XUnitTestDanilaChudom.csproj": {}
+  },
+  "projects": {
+    "X:\\iitu\\omaewa\\DanilaWebApp\\DanilaWebApp\\DanilaWebApp.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "X:\\iitu\\omaewa\\DanilaWebApp\\DanilaWebApp\\DanilaWebApp.csproj",
+        "projectName": "DanilaWebApp",
+        "projectPath": "X:\\iitu\\omaewa\\DanilaWebApp\\DanilaWebApp\\DanilaWebApp.csproj",
+        "packagesPath": "C:\\Users\\Danila\\.nuget\\packages\\",
+        "outputPath": "X:\\iitu\\omaewa\\DanilaWebApp\\DanilaWebApp\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Danila\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "Microsoft.AspNetCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            },
+            "Microsoft.AspNetCore.Razor.Design": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[2.2.4, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[2.2.4, )"
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
+    "X:\\iitu\\omaewa\\DanilaWebApp\\XUnitTestDanilaChudom\\XUnitTestDanilaChudom.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "X:\\iitu\\omaewa\\DanilaWebApp\\XUnitTestDanilaChudom\\XUnitTestDanilaChudom.csproj",
+        "projectName": "XUnitTestDanilaChudom",
+        "projectPath": "X:\\iitu\\omaewa\\DanilaWebApp\\XUnitTestDanilaChudom\\XUnitTestDanilaChudom.csproj",
+        "packagesPath": "C:\\Users\\Danila\\.nuget\\packages\\",
+        "outputPath": "X:\\iitu\\omaewa\\DanilaWebApp\\XUnitTestDanilaChudom\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Danila\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {
+              "X:\\iitu\\omaewa\\DanilaWebApp\\DanilaWebApp\\DanilaWebApp.csproj": {
+                "projectPath": "X:\\iitu\\omaewa\\DanilaWebApp\\DanilaWebApp\\DanilaWebApp.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[16.0.1, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.13.1, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.4.0, )"
+            },
+            "xunit.runner.visualstudio": {
+              "target": "Package",
+              "version": "[2.4.0, )"
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    }
+  }
+}

@@ -12,6 +12,7 @@ using System.Text;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace DanilaWebApp.Controllers
 {
@@ -35,19 +36,22 @@ namespace DanilaWebApp.Controllers
         {
             //var context = _context.Match.Include(m => m.UserMatches).ThenInclude(m => m.User).Include(m => m.Team_home).Include(m => m.Team_guest);
             if (User.Identity.IsAuthenticated)
+            {
+                TempData["message"] = "Hello boss !";
                 return View(await _context.Users.ToListAsync());
+            }
             else
                 return RedirectToAction("Login");
            // return View();//await context.ToListAsync());
         }
 
-        public async Task<IActionResult> WatchUsers()
-        {
-            if (User.Identity.IsAuthenticated)
-                return View(await _context.Users.ToListAsync());
-            else
-                return RedirectToAction("Login");
-        }
+        //public async Task<IActionResult> WatchUsers()
+        //{
+        //    if (User.Identity.IsAuthenticated)
+        //        return View(await _context.Users.ToListAsync());
+        //    else
+        //        return RedirectToAction("Login");
+        //}
         [Authorize(Roles = "user,admin")]
         // GET: Users/Details/5
         public async Task<IActionResult> Details(string id)
@@ -100,7 +104,7 @@ namespace DanilaWebApp.Controllers
                     if (!adminRoleExists)
                         await roleManager.CreateAsync(new IdentityRole("admin"));
 
-                    if (user.UserName == "Ali654")
+                    if (user.UserName == "test")
                         await _userManager.AddToRoleAsync(user, "admin");
                     else
                         await _userManager.AddToRoleAsync(user, "user");
@@ -118,7 +122,11 @@ namespace DanilaWebApp.Controllers
             return View(user);
         }
 
-        public IActionResult Login() => View();
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login([Bind("UserName,Password")]User user)
@@ -130,6 +138,8 @@ namespace DanilaWebApp.Controllers
                 //User users = _context.User.FirstOrDefault(u => u.UserName == user.UserName && u.UserPassword == user.UserPassword);
                 if (result.Succeeded)
                 {
+                    
+                    HttpContext.Session.SetString("userName", user.UserName);
                     return RedirectToAction("Index", "User");
                 }
             }
@@ -138,12 +148,12 @@ namespace DanilaWebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> LogOut()
+        public async Task<IActionResult> Logout()
         {
 
             await _signInManager.SignOutAsync();
             //User users = _context.User.FirstOrDefault(u => u.UserName == user.UserName && u.UserPassword == user.UserPassword);
-            return RedirectToAction("Login", "Users");
+            return RedirectToAction("Login", "User");
         }
 
         // POST: Users/Create
@@ -240,7 +250,7 @@ namespace DanilaWebApp.Controllers
             var user = await _context.Users.FindAsync(id);
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(WatchUsers));
+            return RedirectToAction(nameof(Index));
         }
 
         private bool UserExists(int id)
