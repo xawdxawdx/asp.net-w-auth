@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using DanilaWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using DanilaWebApp.Hubs;
 
 namespace DanilaWebApp
 {
@@ -22,6 +23,7 @@ namespace DanilaWebApp
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSignalR();
             services.AddDistributedMemoryCache();
 
             services.AddSession();
@@ -81,7 +83,11 @@ namespace DanilaWebApp
             
 
             app.UseAuthentication();
-            
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<ChatHub>("/chatHub");
+            });
 
             app.UseMvc(routes =>
             {

@@ -30,6 +30,11 @@ namespace DanilaWebApp.Controllers
             return View();
         }
         [HttpGet]
+        public IActionResult Chat()
+        {
+            return View();
+        }
+        [HttpGet]
         public IActionResult AccessDenied()
         {
             return View();

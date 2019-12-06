@@ -125,3 +125,4 @@ X:\iitu\omaewa\DanilaWebApp\DanilaWebApp\obj\Debug\netcoreapp2.2\Razor\Views\Rol
 X:\iitu\omaewa\DanilaWebApp\DanilaWebApp\obj\Debug\netcoreapp2.2\Razor\Views\Account\AccessDenied.g.cshtml.cs
 X:\iitu\omaewa\DanilaWebApp\DanilaWebApp\obj\Debug\netcoreapp2.2\Razor\Views\User\Login.g.cshtml.cs
 X:\iitu\omaewa\DanilaWebApp\DanilaWebApp\obj\Debug\netcoreapp2.2\Razor\Views\User\Register.g.cshtml.cs
+X:\iitu\omaewa\DanilaWebApp\DanilaWebApp\obj\Debug\netcoreapp2.2\Razor\Views\Account\Chat.g.cshtml.cs
